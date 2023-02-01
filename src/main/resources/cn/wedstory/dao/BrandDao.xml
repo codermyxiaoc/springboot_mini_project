@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.wedstory.dao.BrandDao">
+
+    <update id="updateBrand">
+        update tb_brand
+        <set>
+            <if test="brand_name != null and brand_name != ''">
+                brand_name = #{brand_name},
+            </if>
+            <if test="company_name != null and company_name!= ''">
+                company_name = #{company_name},
+            </if>
+            <if test="ordered != null">
+                ordered = #{ordered},
+            </if>
+            <if test="description != null and description!= ''">
+                description = #{description},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+        </set>
+        where id = #{id};
+    </update>
+    <select id="searchBrand" resultType="cn.wedstory.daoMain.Brand">
+        select *
+        from tb_brand
+        <where>
+            <choose>
+                <when test="brand_name != null and brand_name != ''">
+                    brand_name like #{brand_name}
+                </when>
+                <when test="company_name != null and company_name!= ''">
+                    company_name like #{company_name}
+                </when>
+                <when test="status != null">
+                    status like #{status}
+                </when>
+            </choose>
+        </where>;
+    </select>
+</mapper>

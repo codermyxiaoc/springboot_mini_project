@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.wedstory.dao.UserDao">
+
+  <insert id="addUser" useGeneratedKeys="true" keyProperty="id">
+    insert into tb_users (username, password, head_pic)
+    values (#{username},#{password},#{head_pic});
+  </insert>
+  <update id="updateUser">
+    update tb_users
+    <set>
+      <if test="username != null and username !=''">
+        username = #{username},
+      </if>
+      <if test="password != null and password !=''">
+        password = #{password},
+      </if>
+      <if test="head_pic != null and head_pic !=''">
+        head_pic = #{head_pic},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+</mapper>
